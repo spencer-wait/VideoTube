@@ -1,4 +1,4 @@
-############################### LEFT OFF ON: Section 3: Video 16 ###############################
+############################### LEFT OFF ON: Section 3: Video 18 ###############################
 
 <?php require_once("includes/header.php");?>
 
