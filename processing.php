@@ -17,9 +17,11 @@ $videoUploadData = new VideoUploadData(
                         $_POST["categoryInput"],
                         "REPLACE-THIS"
                     );
+
 // 2) Process video data (upload).
 $videoProcessor = new VideoProcessor($con);
 $wasSuccessful = $videoProcessor->upload($videoUploadData);
+
 // 3) Check if upload was successful.
 
 ?>
