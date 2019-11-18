@@ -81,5 +81,6 @@ class VideoProcessor {
 
         return $query->execute();
     }
+    
 }
 ?>
