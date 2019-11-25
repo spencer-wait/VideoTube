@@ -1,6 +1,11 @@
 <?php 
 require_once("includes/config.php"); 
+require_once("includes/classes/Account.php");
 require_once("includes/classes/FormSanitizer.php");
+require_once("includes/classes/Constants.php");
+
+$account = new Account($con);
+
 
 if(isset($_POST["submitButton"])) {
     $firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
@@ -14,13 +19,13 @@ if(isset($_POST["submitButton"])) {
     $password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
     $password2 = FormSanitizer::sanitizeFormPassword($_POST["password2"]);
 
-    echo $firstName . "\n";
-    echo $lastName . "\n";
-    echo $username . "\n";
-    echo $email . "\n";
-    echo $email2 . "\n";
-    echo $password . "\n";
-    echo $password2 . "\n";
+    $wasSuccessful = $account->register($firstName, $lastName, $username, $email, $email2, $password, $password2);
+
+    if($wasSuccessful) {
+        // SUCCESS
+        // Redirect user to index page
+    }
+
 }
 
 
@@ -53,13 +58,26 @@ if(isset($_POST["submitButton"])) {
             <div class="loginForm">
 
                 <form action="signUp.php" method="POST">
+
+                <?php echo $account->getError(Constants::$firstNameCharacters); ?>
                 <input type="text" name="firstName" placeholder="First name" autocomplete="off" required>
+
+                <?php echo $account->getError(Constants::$lastNameCharacters); ?>
                 <input type="text" name="lastName" placeholder="Last name" autocomplete="off" required>
+
+                <?php echo $account->getError(Constants::$usernameCharacters); ?>
+                <?php echo $account->getError(Constants::$usernameTaken); ?>
                 <input type="text" name="username" placeholder="Username" autocomplete="off" required>
 
+                <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$emailInvalid); ?>
+                <?php echo $account->getError(Constants::$emailTaken); ?>
                 <input type="email" name="email" placeholder="Email" autocomplete="off" required>
                 <input type="email" name="email2" placeholder="Confirm email" autocomplete="off" required>
 
+                <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
+                <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
+                <?php echo $account->getError(Constants::$passwordLength); ?>
                 <input type="password" name="password" placeholder="Password" autocomplete="off" required>
                 <input type="password" name="password2" placeholder="Confirm password" autocomplete="off" required>
 
