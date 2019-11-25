@@ -12,13 +12,15 @@ $video->incrementViews();
 ?>
 
 <div class="watchLeftColumn">
-
 <?php
     $videoPlayer = new VideoPlayer($video);
     echo $videoPlayer->create(true);
 ?>
+</div>
 
+<div class="suggestions">
 
 </div>
+
 
 <?php require_once("includes/footer.php"); ?>
