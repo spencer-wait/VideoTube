@@ -60,6 +60,10 @@ class VideoInfoSection {
                         </div>
                         $actionButton
                     </div>
+
+                    <div class='descriptionContainer'>
+                        $description
+                    </div>
         
                 </div>";
     }
