@@ -27,9 +27,9 @@ class VideoDetailsFormProvider {
     private function createFileInput() {
 
         return "<div class='form-group'>
+                    <label for='exampleFormControlFile1'>Your file</label>
                     <input type='file' class='form-control-file' id='exampleFormControlFile1' name='fileInput' required>
-                 </div>";
-
+                </div>";
     }
 
     private function createTitleInput() {
@@ -45,8 +45,8 @@ class VideoDetailsFormProvider {
     }
 
     private function createPrivacyInput() {
-        return  "<div class='form-group'>
-                    <select class='form-control' name = 'privacyInput'>
+        return "<div class='form-group'>
+                    <select class='form-control' name='privacyInput'>
                         <option value='0'>Private</option>
                         <option value='1'>Public</option>
                     </select>
@@ -54,28 +54,28 @@ class VideoDetailsFormProvider {
     }
 
     private function createCategoriesInput() {
-        $query = $this->con->prepare("SELECT * FROM categories");
+        $query = $this->con->prepare("SELECT * FROM categories");    
         $query->execute();
-
-        $html = "<div class-'form-group'>
+        
+        $html = "<div class='form-group'>
                     <select class='form-control' name='categoryInput'>";
 
         while($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $id = $row["id"];
             $name = $row["name"];
-            
+
             $html .= "<option value='$id'>$name</option>";
         }
-
+        
         $html .= "</select>
                 </div>";
 
         return $html;
-    } 
 
-    private function createUploadButton() {
-        return "<button type='submit' class='btn btn-primary' name='uploadButton' style='margin-top:15px'>Upload</button>";
     }
 
+    private function createUploadButton() {
+        return "<button type='submit' class='btn btn-primary' name='uploadButton'>Upload</button>";
+    }
 }
 ?>

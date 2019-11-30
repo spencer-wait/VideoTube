@@ -25,7 +25,7 @@ class Account {
             return false;
         }
     }
-
+    
     public function register($fn, $ln, $un, $em, $em2, $pw, $pw2) {
         $this->validateFirstName($fn);
         $this->validateLastName($ln);
@@ -43,11 +43,11 @@ class Account {
 
     public function insertUserDetails($fn, $ln, $un, $em, $pw) {
         
-        $pw = hash("sha512", $pw);  // hash the user's password so that no one can see it
+        $pw = hash("sha512", $pw);
         $profilePic = "assets/images/profilePictures/default.png";
 
         $query = $this->con->prepare("INSERT INTO users (firstName, lastName, username, email, password, profilePic)
-                                    VALUES(:fn, :ln, :un, :em, :pw, :pic)");
+                                        VALUES(:fn, :ln, :un, :em, :pw, :pic)");
 
         $query->bindParam(":fn", $fn);
         $query->bindParam(":ln", $ln);
@@ -55,11 +55,10 @@ class Account {
         $query->bindParam(":em", $em);
         $query->bindParam(":pw", $pw);
         $query->bindParam(":pic", $profilePic);
-
+        
         return $query->execute();
-
     }
-
+    
     private function validateFirstName($fn) {
         if(strlen($fn) > 25 || strlen($fn) < 2) {
             array_push($this->errorArray, Constants::$firstNameCharacters);
@@ -111,21 +110,20 @@ class Account {
 
     private function validatePasswords($pw, $pw2) {
         if($pw != $pw2) {
-            array_push($this->errorArray, Constants::$passwordNotAlphanumeric);
+            array_push($this->errorArray, Constants::$passwordsDoNotMatch);
             return;
         }
 
         if(preg_match("/[^A-Za-z0-9]/", $pw)) {
-            array_push($this->errorArray, Constants::$passwordsDoNotMatch);
+            array_push($this->errorArray, Constants::$passwordNotAlphanumeric);
             return;
         }
 
         if(strlen($pw) > 30 || strlen($pw) < 5) {
             array_push($this->errorArray, Constants::$passwordLength);
         }
-
     }
-
+    
     public function getError($error) {
         if(in_array($error, $this->errorArray)) {
             return "<span class='errorMessage'>$error</span>";

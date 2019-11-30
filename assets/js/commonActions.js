@@ -1,5 +1,7 @@
 $(document).ready(function() {
+    
     $(".navShowHide").on("click", function() {
+        
         var main = $("#mainSectionContainer");
         var nav = $("#sideNavContainer");
 
@@ -11,5 +13,7 @@ $(document).ready(function() {
         }
 
         main.toggleClass("leftPadding");
+
     });
+
 });

@@ -1,8 +1,8 @@
 <?php
-ob_start(); // turns on output buffering
+ob_start(); //Turns on output buffering 
 session_start();
 
-date_default_timezone_set("America/New_York");
+date_default_timezone_set("Europe/London");
 
 try {
     $con = new PDO("mysql:dbname=VideoTube;host=localhost", "root", "");

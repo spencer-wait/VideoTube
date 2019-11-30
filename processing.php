@@ -8,22 +8,22 @@ if(!isset($_POST["uploadButton"])) {
     exit();
 }
 
-// 1) Create file upload data.
-$videoUploadData = new VideoUploadData(
-                        $_FILES["fileInput"],
-                        $_POST["titleInput"], 
-                        $_POST["descriptionInput"],
-                        $_POST["privacyInput"],
-                        $_POST["categoryInput"],
-                        $userLoggedInObj->getUsername()
-                    );
+// 1) create file upload data
+$videoUpoadData = new VideoUploadData(
+                            $_FILES["fileInput"], 
+                            $_POST["titleInput"],
+                            $_POST["descriptionInput"],
+                            $_POST["privacyInput"],
+                            $_POST["categoryInput"],
+                            $userLoggedInObj->getUsername()   
+                        );
 
-// 2) Process video data (upload).
+// 2) Process video data (upload)
 $videoProcessor = new VideoProcessor($con);
-$wasSuccessful = $videoProcessor->upload($videoUploadData);
+$wasSuccessful = $videoProcessor->upload($videoUpoadData);
 
-// 3) Check if upload was successful.
+// 3) Check if upload was successful
 if($wasSuccessful) {
-    echo "Upload successful\n";
+    echo "Upload successful";
 }
 ?>
