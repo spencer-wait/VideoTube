@@ -11,7 +11,7 @@ class ButtonProvider {
 
         $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
 
-        $action = ButtonProvider::createLink($action);
+        $action  = ButtonProvider::createLink($action);
 
         return "<button class='$class' onclick='$action'>
                     $image
@@ -23,8 +23,8 @@ class ButtonProvider {
 
         $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
 
-        return  "<a href='$href'>
-                    <button class='$class' onclick='$href'>
+        return "<a href='$href'>
+                    <button class='$class'>
                         $image
                         <span class='text'>$text</span>
                     </button>
@@ -36,17 +36,35 @@ class ButtonProvider {
         $profilePic = $userObj->getProfilePic();
         $link = "profile.php?username=$username";
 
-        return  "<a href='$link'>
+        return "<a href='$link'>
                     <img src='$profilePic' class='profilePicture'>
                 </a>";
     }
-
+    
     public static function createEditVideoButton($videoId) {
         $href = "editVideo.php?videoId=$videoId";
 
         $button = ButtonProvider::createHyperlinkButton("EDIT VIDEO", null, $href, "edit button");
 
-        return  "<div class='editVideoButtonContainer'>
+        return "<div class='editVideoButtonContainer'>
+                    $button
+                </div>";
+    }
+    
+    public static function createSubscriberButton($con, $userToObj, $userLoggedInObj) {
+        $userTo = $userToObj->getUsername();
+        $userLoggedIn = $userLoggedInObj->getUsername();
+
+        $isSubscribedTo = $userLoggedInObj->isSubscribedTo($userTo);
+        $buttonText = $isSubscribedTo ? "SUBSCRIBED" : "SUBSCRIBE";
+        $buttonText .= " " . $userToObj->getSubscriberCount();
+
+        $buttonClass = $isSubscribedTo ? "unsubscribe button" : "subscribe button";
+        $action = "subscribe(\"$userTo\", \"$userLoggedIn\", this)";
+
+        $button = ButtonProvider::createButton($buttonText, null, $action, $buttonClass);
+
+        return "<div class='subscribeButtonContainer'>
                     $button
                 </div>";
     }

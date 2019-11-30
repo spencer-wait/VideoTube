@@ -189,5 +189,6 @@ class Video {
 
         return $query->rowCount() > 0;
     }
+
 }
 ?>

@@ -17,7 +17,7 @@ function likeVideo(button, videoId) {
             likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up.png");
         }
         else {
-            likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up-active.png");
+            likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up-active.png")
         }
 
         dislikeButton.find("img:first").attr("src", "assets/images/icons/thumb-down.png");
@@ -43,7 +43,7 @@ function dislikeVideo(button, videoId) {
             dislikeButton.find("img:first").attr("src", "assets/images/icons/thumb-down.png");
         }
         else {
-            dislikeButton.find("img:first").attr("src", "assets/images/icons/thumb-down-active.png");
+            dislikeButton.find("img:first").attr("src", "assets/images/icons/thumb-down-active.png")
         }
 
         likeButton.find("img:first").attr("src", "assets/images/icons/thumb-up.png");
