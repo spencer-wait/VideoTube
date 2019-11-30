@@ -41,6 +41,18 @@ class VideoInfoSection {
         return  "<div class='secondaryInfo'>
                     <div class='topRow'>
                         $profileButton
+
+                        <div class='uploadInfo'>
+                            <span class='owner'>
+                                <a href='profile.php?username=$uploadedBy'>
+                                    $uploadedBy
+                                </a>
+                            </span>
+                            <span class='date'>
+                                Published on $uploadDate
+                            </span>
+                        </div>
+
                     </div>
         
                 </div>";
