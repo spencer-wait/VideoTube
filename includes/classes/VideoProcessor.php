@@ -5,20 +5,13 @@ class VideoProcessor {
     private $sizeLimit = 500000000;
     private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
     
-    // *** UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
-    private $ffmpegPath = "ffmpeg/mac/regular-xampp/ffmpeg"; // *** MAC (USING REGULAR XAMPP) ***
-    //private $ffmpegPath = "ffmpeg/mac/xampp-VM/ffmpeg"; // *** MAC (USING XAMPP VM) ***
-    // private $ffmpegPath = "ffmpeg/linux/ffmpeg"; // *** LINUX ***
-    // private $ffmpegPath = "ffmpeg/windows/ffmpeg.exe"; //  *** WINDOWS ***
-
-    // *** ALSO UNCOMMENT ONE OF THESE DEPENDING ON YOUR COMPUTER ***
-    private $ffprobePath = "ffmpeg/mac/regular-xampp/ffprobe"; // *** MAC (USING REGULAR XAMPP) ***
-    //private $ffprobePath = "ffmpeg/mac/xampp-VM/ffprobe"; // *** MAC (USING XAMPP VM) ***
-    // private $ffprobePath = "ffmpeg/linux/ffprobe"; // *** LINUX ***
-    // private $ffprobePath = "ffmpeg/windows/ffprobe.exe"; //  *** WINDOWS ***
-
+    private $ffmpegPath; // path initialized in constructor below
+    private $ffprobePath;
+    
     public function __construct($con) {
         $this->con = $con;
+        $this->ffmpegPath = realpath("ffmpeg/bin/ffmpeg.exe");
+        $this->ffprobePath = realpath("ffmpeg/bin/ffprobe.exe");
     }
 
     public function upload($videoUploadData) {
