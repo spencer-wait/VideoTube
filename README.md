@@ -3,29 +3,87 @@
 
 
 ## Contents
-* Project Components
-    1. Database Tables
-        1. videotube
-        2. categories
-        3. users
-        4. videos
-        5. thumbnails
-        6. subscribers
-        7. likes
-        8. dislikes 
-    2. Website Pages
-        1. index.php
-        2. SignUp.php
-        3. SignIn.php
-        4. watch.php
-    3. Database ER Diagrams
-    4. References
+* Database Tables
+    * videotube
+    * categories
+    * users
+    * videos
+    * thumbnails
+    * subscribers
+    * likes
+    * dislikes 
+* Website Pages
+    * index.php
+    * SignUp.php
+    * SignIn.php
+    * watch.php
+* Database ER Diagrams
+* References
 
 
-## 1. Database Tables
-**a. VideoTube**
+## Database Tables
+* #### videotube Table
 
 The videotube database table is the main container for all of the other database tables.
 
-![VideoTube Database Main Screenshot](README screenshots/Database Table Screenshots/VideoTube Database Main Screenshot.PNG)
-Format: ![VideoTube Database Main Screenshot missing](https://github.com/spencer-wait/VideoTube/blob/master/README%20screenshots/Database%20Table%20Screenshots/VideoTube%20Database%20Main%20Screenshot.PNG)
+(https://github.com/spencer-wait/VideoTube/blob/master/README%20screenshots/Database%20Table%20Screenshots/VideoTube%20Database%20Main%20Screenshot.PNG)
+
+* #### categories Table
+
+
+* #### users Table
+
+
+* #### videos Table
+
+
+* #### thumbnails Table
+
+
+* #### subscribers Table
+
+
+* #### likes Table
+
+
+* #### dislikes Table
+
+
+## Website Pages
+* #### index.php Page
+
+
+* #### SignUp.php Page
+
+
+* #### SignIn.php Page
+
+
+* #### watch.php Page
+
+
+## Database ER Diagrams
+
+
+## References
+* #### YouTube
+    * Basic visual formatting elements
+    * User sign up, log in, video like/dislike, and user subscriber system design
+* #### Udemy Online Courses
+    * **Reece Kenny** - Software Engineer at Microsoft
+    * *Make a YouTube Clone from Scratch: JavaScript PHP and MySQL* online course
+    * Online teacher and course for guidance, direction, and project structure
+* #### icons8
+    * Free icons for site
+* #### ffmpeg
+    * Free mp4 video converter
+* #### MaxCDN
+    * Bootstrap style sheet
+* #### Google Developer APIs
+    * AJAX jQuery library
+* #### cdnjs CloudFlare
+    * Website APIs and libraries for efficient data processing
+* #### Microsoft Visual Studio Code
+    * Integrated Development Environment
+* #### w3Schools
+    * HTML, CSS, PHP, SQL, AJAX, JavaScript, jQuery, and JSON programming references
