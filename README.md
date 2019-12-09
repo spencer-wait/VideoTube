@@ -27,4 +27,5 @@
 
 The videotube database table is the main container for all of the other database tables.
 
-![VideoTube Database Main Screenshot](/README_screenshots/Database_Table_Screenshots/VideoTube_Database_Main_Screenshot.PNG)
+![VideoTube Database Main Screenshot](README screenshots/Database Table Screenshots/VideoTube Database Main Screenshot.PNG)
+Format: ![VideoTube Database Main Screenshot missing](https://github.com/spencer-wait/VideoTube/blob/master/README%20screenshots/Database%20Table%20Screenshots/VideoTube%20Database%20Main%20Screenshot.PNG)
