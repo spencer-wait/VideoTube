@@ -1,12 +1,16 @@
 <?php
+
+/* USED TO CREATE THE VIDEO UPLOAD FORM PAGE */
+
 class VideoDetailsFormProvider {
 
-    private $con;
+    private $con;   // connection variable for database
 
     public function __construct($con) {
         $this->con = $con;
     }
 
+    // used to create video upload form
     public function createUploadForm() {
         $fileInput = $this->createFileInput();
         $titleInput = $this->createTitleInput();
@@ -24,8 +28,9 @@ class VideoDetailsFormProvider {
                 </form>";
     }
 
-    private function createFileInput() {
 
+    /* FUNCTIONS TO CREATE VIDEO INPUT FORM */
+    private function createFileInput() {
         return "<div class='form-group'>
                     <label for='exampleFormControlFile1'>Your file</label>
                     <input type='file' class='form-control-file' id='exampleFormControlFile1' name='fileInput' required>
@@ -53,7 +58,7 @@ class VideoDetailsFormProvider {
                 </div>";
     }
 
-    private function createCategoriesInput() {
+    private function createCategoriesInput() {  // video categories are fetched from the database table
         $query = $this->con->prepare("SELECT * FROM categories");    
         $query->execute();
         
@@ -71,7 +76,6 @@ class VideoDetailsFormProvider {
                 </div>";
 
         return $html;
-
     }
 
     private function createUploadButton() {

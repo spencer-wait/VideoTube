@@ -1,4 +1,7 @@
 <?php
+
+/* CONSTRUCTOR FOR VIDEO UPLOAD DATA */
+
 class VideoUploadData {
 
     public $videoDataArray, $title, $description, $privacy, $category, $uploadedBy;
@@ -11,6 +14,5 @@ class VideoUploadData {
         $this->category = $category;
         $this->uploadedBy = $uploadedBy;
     }
-
 }
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+/* USED TO CREATE BUTTONS USED ON WEB PAGES */
+
 class ButtonProvider {
 
     public static $signInFunction = "notSignedIn()";

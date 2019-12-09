@@ -1,61 +1,68 @@
 <?php
+
+/* USED TO VERIFY VIDEO UPLOAD FILE, CONVERT FILE, UPLOAD FILE, AND INSERT INFO TO DATABASE */
+
 class VideoProcessor {
 
-    private $con;
-    private $sizeLimit = 500000000;
-    private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");
+    private $con;   // variable used to connect to database
+    private $sizeLimit = 500000000; // allows for larger file size to be uploaded
+    private $allowedTypes = array("mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg");    // all the file types allowed to be uploaded
     
-    private $ffmpegPath; // path initialized in constructor below
-    private $ffprobePath;
+    private $ffmpegPath;    // path initialized in constructor below
+    private $ffprobePath;   // path initialized in constructor below
     
     public function __construct($con) {
         $this->con = $con;
+
+        // ffmpeg used to convert video files to mpeg format
         $this->ffmpegPath = realpath("ffmpeg/bin/ffmpeg.exe");
         $this->ffprobePath = realpath("ffmpeg/bin/ffprobe.exe");
     }
 
+    // upload video file to website
     public function upload($videoUploadData) {
 
-        $targetDir = "uploads/videos/";
+        $targetDir = "uploads/videos/"; // save uploaded videos in this directory
         $videoData = $videoUploadData->videoDataArray;
 
-        $tempFilePath = $targetDir . uniqid() . basename($videoData["name"]);
-        $tempFilePath = str_replace(" ", "_", $tempFilePath);
+        $tempFilePath = $targetDir . uniqid() . basename($videoData["name"]);   // create unique id for video file name
+        $tempFilePath = str_replace(" ", "_", $tempFilePath);   // remove spaces from name - replace by underscores
 
         $isValidData = $this->processData($videoData, $tempFilePath);
 
-        if(!$isValidData) {
+        if(!$isValidData) { // make sure upload data is correct format
             return false;
         }
 
-        if(move_uploaded_file($videoData["tmp_name"], $tempFilePath)) {
+        if(move_uploaded_file($videoData["tmp_name"], $tempFilePath)) { // move video data to filepath
             $finalFilePath = $targetDir . uniqid() . ".mp4";
 
-            if(!$this->insertVideoData($videoUploadData, $finalFilePath)) {
+            if(!$this->insertVideoData($videoUploadData, $finalFilePath)) { // call query to insert video data and error check
                 echo "Insert query failed\n";
                 return false;
             }
 
-            if(!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) {
+            if(!$this->convertVideoToMp4($tempFilePath, $finalFilePath)) { // call to convert video format using ffmpeg and error check
                 echo "Upload failed\n";
                 return false;
             }
 
-            if(!$this->deleteFile($tempFilePath)) {
+            if(!$this->deleteFile($tempFilePath)) { // call to delete original video file after conversion and error check
                 echo "Upload failed\n";
                 return false;
             }
 
-            if(!$this->generateThumbnails($finalFilePath)) {
+            if(!$this->generateThumbnails($finalFilePath)) {    // call to generate 3 thumbnails for uploaded video file and error check
                 echo "Upload failed - could not generate thumbnails\n";
                 return false;
             }
 
-            return true;
+            return true;    // return true if all functions execute properly
 
         }
     }
 
+    // function to process uploaded video data and error check
     private function processData($videoData, $filePath) {
         $videoType = pathInfo($filePath, PATHINFO_EXTENSION);
         
@@ -75,19 +82,21 @@ class VideoProcessor {
         return true;
     }
 
+    /* ERROR CHECKING FUNCTIONS */
+
     private function isValidSize($data) {
         return $data["size"] <= $this->sizeLimit;
     }
-
     private function isValidType($type) {
         $lowercased = strtolower($type);
         return in_array($lowercased, $this->allowedTypes);
     }
-    
     private function hasError($data) {
         return $data["error"] != 0;
     }
 
+
+    // querys to insert video upload data into database table
     private function insertVideoData($uploadData, $filePath) {
         $query = $this->con->prepare("INSERT INTO videos(title, uploadedBy, description, privacy, category, filePath)
                                         VALUES(:title, :uploadedBy, :description, :privacy, :category, :filePath)");
@@ -102,14 +111,14 @@ class VideoProcessor {
         return $query->execute();
     }
 
+    // function to use ffmpeg to convert upload video to universal mp4 format
     public function convertVideoToMp4($tempFilePath, $finalFilePath) {
         $cmd = "$this->ffmpegPath -i $tempFilePath $finalFilePath 2>&1";
 
         $outputLog = array();
         exec($cmd, $outputLog, $returnCode);
         
-        if($returnCode != 0) {
-            //Command failed
+        if($returnCode != 0) {  // command failed
             foreach($outputLog as $line) {
                 echo $line . "<br>";
             }
@@ -119,6 +128,7 @@ class VideoProcessor {
         return true;
     }
 
+    // function to delete old file that is not mp4
     private function deleteFile($filePath) {
         if(!unlink($filePath)) {
             echo "Could not delete file\n";
@@ -128,6 +138,7 @@ class VideoProcessor {
         return true;
     }
 
+    // function to generate 3 thumbnails from uploaded video and insert into database
     public function generateThumbnails($filePath) {
 
         $thumbnailSize = "210x118";
@@ -149,13 +160,13 @@ class VideoProcessor {
             $outputLog = array();
             exec($cmd, $outputLog, $returnCode);
             
-            if($returnCode != 0) {
-                //Command failed
+            if($returnCode != 0) {  // command failed
                 foreach($outputLog as $line) {
                     echo $line . "<br>";
                 }
             }
 
+            // insert thumbnails into database table
             $query = $this->con->prepare("INSERT INTO thumbnails(videoId, filePath, selected)
                                         VALUES(:videoId, :filePath, :selected)");
             $query->bindParam(":videoId", $videoId);
@@ -175,10 +186,12 @@ class VideoProcessor {
         return true;
     }
 
+    // function to determine the length of uploaded video file
     private function getVideoDuration($filePath) {
         return (int)shell_exec("$this->ffprobePath -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $filePath");
     }
 
+    // change how video duration is displayed and insert into database table
     private function updateDuration($duration, $videoId) {
         
         $hours = floor($duration / 3600);

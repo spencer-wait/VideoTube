@@ -1,4 +1,7 @@
 <?php
+
+/* USED TO SET A LIKE ON A VIDEO */
+
 require_once("../includes/config.php"); 
 require_once("../includes/classes/Video.php"); 
 require_once("../includes/classes/User.php"); 

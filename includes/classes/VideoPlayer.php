@@ -1,4 +1,7 @@
 <?php
+
+/* CREATES VIDEO PLAYER ON PAGE AND SETS VIDEOS TO AUTO PLAY WHEN USER LOADS PAGE */
+
 class VideoPlayer {
 
     private $video;
@@ -7,6 +10,7 @@ class VideoPlayer {
         $this->video = $video;
     }
 
+    // set video to auto play when page loads
     public function create($autoPlay) {
         if($autoPlay) {
             $autoPlay = "autoplay";
@@ -14,6 +18,8 @@ class VideoPlayer {
         else {
             $autoPlay = "";
         }
+
+        // create video player on page
         $filePath = $this->video->getFilePath();
         return "<video class='videoPlayer' controls $autoPlay>
                     <source src='$filePath' type='video/mp4'>

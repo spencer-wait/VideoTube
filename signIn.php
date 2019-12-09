@@ -1,4 +1,7 @@
 <?php 
+
+/* CREATES SIGN IN PAGE AND ALLOWS USER TO SIGN IN TO WEBSITE */
+
 require_once("includes/config.php");
 require_once("includes/classes/Account.php");
 require_once("includes/classes/Constants.php"); 
@@ -6,6 +9,7 @@ require_once("includes/classes/FormSanitizer.php");
 
 $account = new Account($con);
 
+// user log in actions when submit button pressed
 if(isset($_POST["submitButton"])) {
     
     $username = FormSanitizer::sanitizeFormUsername($_POST["username"]);
@@ -13,7 +17,7 @@ if(isset($_POST["submitButton"])) {
 
     $wasSuccessful = $account->login($username, $password);
 
-    if($wasSuccessful) {
+    if($wasSuccessful) {    // log user in and take to index page
         $_SESSION["userLoggedIn"] = $username;
         header("Location: index.php");
     }
@@ -26,6 +30,7 @@ function getInputValue($name) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,9 +75,6 @@ function getInputValue($name) {
         </div>
     
     </div>
-
-
-
 
 </body>
 </html>

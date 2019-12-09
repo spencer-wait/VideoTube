@@ -1,4 +1,7 @@
 <?php
+
+/* USED TO QUERY SUBSCRIBERS TO/FROM DATABASE */
+
 require_once("../includes/config.php");
 
 if(isset($_POST['userTo']) && isset($_POST['userFrom'])) {
@@ -13,20 +16,21 @@ if(isset($_POST['userTo']) && isset($_POST['userFrom'])) {
     $query->execute();
 
     if($query->rowCount() == 0) {
-        // insert
+        // insert user from subscribers table
         $query = $con->prepare("INSERT INTO subscribers(userTo, userFrom) VALUES(:userTo, :userFrom)");
         $query->bindParam(":userTo", $userTo);
         $query->bindParam(":userFrom", $userFrom);
         $query->execute();
     }
     else {
-        // delete
+        // delete user from subscribers table
         $query = $con->prepare("DELETE FROM subscribers WHERE userTo=:userTo AND userFrom=:userFrom");
         $query->bindParam(":userTo", $userTo);
         $query->bindParam(":userFrom", $userFrom);
         $query->execute();
     }
 
+    // check how many subscribers there are in table
     $query = $con->prepare("SELECT * FROM subscribers WHERE userTo=:userTo");
     $query->bindParam(":userTo", $userTo);
     $query->execute();

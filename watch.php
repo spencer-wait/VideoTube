@@ -1,10 +1,13 @@
 <?php 
+
+/* CREATES VIDEO WATCH PAGE */
+
 require_once("includes/header.php"); 
 require_once("includes/classes/VideoPlayer.php"); 
 require_once("includes/classes/VideoInfoSection.php"); 
 
 if(!isset($_GET["id"])) {
-    echo "No url passed into page";
+    echo "No URL passed into page.";
     exit();
 }
 
@@ -29,9 +32,6 @@ $video->incrementViews();
 <div class="suggestions">
 
 </div>
-
-
-
 
 <?php require_once("includes/footer.php"); ?>
                 

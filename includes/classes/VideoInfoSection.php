@@ -1,5 +1,9 @@
 <?php
+
+/* USED TO CREATE MAIN VIDEO INFO AND CONTROLS SECTIONS ON VIDEO PAGE */
+
 require_once("includes/classes/VideoInfoControls.php"); 
+
 class VideoInfoSection {
 
     private $con, $video, $userLoggedInObj;
@@ -10,10 +14,12 @@ class VideoInfoSection {
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
+    // creates the main info and controls sections on the video page
     public function create() {
         return $this->createPrimaryInfo() . $this->createSecondaryInfo();
     }
 
+    // creates primary video info and controls section on video page
     private function createPrimaryInfo() {
         $title = $this->video->getTitle();
         $views = $this->video->getViews();
@@ -31,8 +37,8 @@ class VideoInfoSection {
                 </div>";
     }
 
+    // creates secondary info and controls section for video page
     private function createSecondaryInfo() {
-
         $description = $this->video->getDescription();
         $uploadDate = $this->video->getUploadDate();
         $uploadedBy = $this->video->getUploadedBy();

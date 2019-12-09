@@ -1,4 +1,7 @@
 <?php 
+
+/* CREATES SIGN UP PAGE AND ALLOWS USER TO CREATE AN ACCOUNT */
+
 require_once("includes/config.php"); 
 require_once("includes/classes/Account.php");
 require_once("includes/classes/Constants.php"); 
@@ -6,6 +9,7 @@ require_once("includes/classes/FormSanitizer.php");
 
 $account = new Account($con);
 
+// when submit button is pressed then create account and log user in
 if(isset($_POST["submitButton"])) {
     $firstName = FormSanitizer::sanitizeFormString($_POST["firstName"]);
     $lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
@@ -34,6 +38,7 @@ function getInputValue($name) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,9 +92,7 @@ function getInputValue($name) {
 
                 <input type="submit" name="submitButton" value="SUBMIT">
 
-                
                 </form>
-
 
             </div>
 
@@ -98,9 +101,6 @@ function getInputValue($name) {
         </div>
     
     </div>
-
-
-
 
 </body>
 </html>

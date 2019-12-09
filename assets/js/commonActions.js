@@ -1,6 +1,9 @@
+
+/* USED FOR COMMON WEBSITE ACTIONS SUCH AS MENUS */
+
 $(document).ready(function() {
     
-    $(".navShowHide").on("click", function() {
+    $(".navShowHide").on("click", function() {  // left menu shows and hides upon each click
         
         var main = $("#mainSectionContainer");
         var nav = $("#sideNavContainer");
@@ -13,9 +16,7 @@ $(document).ready(function() {
         }
 
         main.toggleClass("leftPadding");
-
     });
-
 });
 
 function notSignedIn() {

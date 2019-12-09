@@ -1,4 +1,7 @@
 <?php
+
+/* CONSTANT ERROR MESSAGES TO BE USED WHEN USER INPUTS DATA INCORRECTLY */
+
 class Constants {
     public static $firstNameCharacters = "Your first name must be between 2 and 25 characters";
     public static $lastNameCharacters = "Your last name must be between 2 and 25 characters";
