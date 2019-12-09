@@ -351,3 +351,9 @@ a:hover {
     color: #fff;
 }
 
+.secondaryInfo .topRow .uploadInfo .owner a {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
