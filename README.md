@@ -115,7 +115,7 @@ The watch.php page is where users can view videos that either they or other user
 <img src="README%20images/Models/VideoTube%20ER%20Model.png">
 
 ### Relational Schema
-Momentarily blank.
+<img src="README%20images/Models/VideoTube%20Relational%20Schema.PNG">
 
 <br />
 
